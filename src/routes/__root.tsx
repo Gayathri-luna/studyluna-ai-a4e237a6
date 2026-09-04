@@ -163,8 +163,8 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <GalaxyBackground />
         <FloatingBackground />
+        <GalaxyBackground />
         <div className="flex min-h-screen flex-col">
           <Navbar />
 

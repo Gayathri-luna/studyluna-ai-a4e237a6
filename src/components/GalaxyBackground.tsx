@@ -121,8 +121,8 @@ export function GalaxyBackground() {
       // nebula clouds
       ctx.globalCompositeOperation = "lighter";
       const clouds: Array<[number, number, number, string, number]> = [
-        [cx - width * 0.18, cy - height * 0.05, scale * 0.95, armColor, 0.1],
-        [cx + width * 0.22, cy + height * 0.12, scale * 0.8, coreColor, 0.12],
+        [cx - width * 0.18, cy - height * 0.05, scale * 0.95, armColor, 0.16],
+        [cx + width * 0.22, cy + height * 0.12, scale * 0.8, coreColor, 0.18],
         [cx + width * 0.05, cy - height * 0.2, scale * 0.6, glowColor, 0.06],
       ];
       for (const [x, y, radius, color, alpha] of clouds) {
@@ -141,7 +141,7 @@ export function GalaxyBackground() {
       coreGrad.addColorStop(0, glowColor);
       coreGrad.addColorStop(0.35, coreColor);
       coreGrad.addColorStop(1, "transparent");
-      ctx.globalAlpha = 0.3;
+      ctx.globalAlpha = 0.42;
       ctx.fillStyle = coreGrad;
       ctx.beginPath();
       ctx.arc(cx, cy, scale * 0.28, 0, Math.PI * 2);
@@ -168,7 +168,7 @@ export function GalaxyBackground() {
         if (px < -40 || px > width + 40 || py < -40 || py > height + 40) continue;
 
         const flicker = reduced ? 1 : 0.75 + Math.sin(time * 1.6 + s.twinkle) * 0.25;
-        ctx.globalAlpha = Math.min(1, s.brightness * flicker * persp * 0.75);
+        ctx.globalAlpha = Math.min(1, s.brightness * flicker * persp * 1.05);
         ctx.fillStyle = s.tint > 0.62 ? armColor : s.tint > 0.24 ? coreColor : glowColor;
         const radius = s.size * persp;
         ctx.beginPath();
@@ -193,9 +193,8 @@ export function GalaxyBackground() {
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-background" />
       {mounted && <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/60" />
     </div>
   );
 }
