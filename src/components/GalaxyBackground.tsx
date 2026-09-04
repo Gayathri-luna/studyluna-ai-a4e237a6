@@ -34,7 +34,7 @@ function makeStars(): Star[] {
       r,
       a,
       y: (rand() - 0.5) * 0.12 * (1.2 - t),
-      size: 0.5 + rand() * 1.7,
+      size: 0.7 + rand() * 2.1,
       brightness: 0.25 + rand() * 0.75,
       twinkle: rand() * Math.PI * 2,
       tint: rand(),
@@ -66,6 +66,7 @@ export function GalaxyBackground() {
     const coreColor = token("--primary", "oklch(0.7 0.16 265)");
     const armColor = token("--chart-2", "oklch(0.7 0.14 190)");
     const glowColor = token("--chart-4", "oklch(0.8 0.16 85)");
+    const starColor = token("--foreground", "oklch(0.98 0 0)");
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const stars = makeStars();
@@ -168,8 +169,8 @@ export function GalaxyBackground() {
         if (px < -40 || px > width + 40 || py < -40 || py > height + 40) continue;
 
         const flicker = reduced ? 1 : 0.75 + Math.sin(time * 1.6 + s.twinkle) * 0.25;
-        ctx.globalAlpha = Math.min(1, s.brightness * flicker * persp * 1.05);
-        ctx.fillStyle = s.tint > 0.62 ? armColor : s.tint > 0.24 ? coreColor : glowColor;
+        ctx.globalAlpha = Math.min(1, s.brightness * flicker * persp * 1.6);
+        ctx.fillStyle = s.tint > 0.7 ? armColor : s.tint > 0.5 ? glowColor : starColor;
         const radius = s.size * persp;
         ctx.beginPath();
         ctx.arc(px, py, radius, 0, Math.PI * 2);
@@ -194,7 +195,6 @@ export function GalaxyBackground() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {mounted && <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/60" />
     </div>
   );
 }
