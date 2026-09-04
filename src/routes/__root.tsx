@@ -19,6 +19,7 @@ import { BranchWelcome } from "@/components/BranchWelcome";
 import { AuthProvider } from "@/lib/auth";
 import { LearningReminders } from "@/components/LearningReminders";
 import { MotionPage, FloatingBackground } from "@/components/motion";
+import { GalaxyBackground } from "@/components/GalaxyBackground";
 import { AnimatePresence } from "framer-motion";
 
 
