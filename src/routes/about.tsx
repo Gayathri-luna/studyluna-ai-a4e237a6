@@ -312,6 +312,21 @@ function AboutPage() {
                     content, learning experience, and community growth for
                     engineering students.
                   </p>
+                  <div>
+                    <h4 className="text-sm font-semibold text-card-foreground">
+                      Skills &amp; Interests
+                    </h4>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {cofounderSkills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="inline-flex rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>
                       Email:{" "}
