@@ -86,6 +86,16 @@ const skills = [
   "Community Building",
 ];
 
+const cofounderSkills = [
+  "Content Strategy",
+  "Learning Experience Design",
+  "Community Growth",
+  "Student Mentorship",
+  "Social Media & Outreach",
+  "Curriculum Research",
+];
+
+
 const socialLinks = [
   {
     label: "GitHub — Gayathri-luna (Gayathri Marasani)",
