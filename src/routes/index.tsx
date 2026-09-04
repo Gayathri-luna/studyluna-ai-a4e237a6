@@ -128,7 +128,10 @@ function HomePage() {
             <p data-hero-item className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
               AI-powered learning platform for engineering students across every branch.
             </p>
-            <div data-hero-item className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div data-hero-item className="flex w-full justify-center">
+              <HomeAiSearch />
+            </div>
+            <div data-hero-item className="mt-6 flex flex-col gap-3 sm:flex-row">
               <AnimatedButton>
                 <Link
                   to="/roadmaps"
