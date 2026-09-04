@@ -189,7 +189,7 @@ function CopyButton({ text }: { text: string }) {
 
 function LunaThreadPage() {
   const { threadId } = Route.useParams();
-  const { topic } = useSearch({ from: "/luna-ai" }) as { topic?: string };
+  const { topic, q } = useSearch({ from: "/luna-ai" }) as { topic?: string; q?: string };
   const stored = useMemo<LunaThread | undefined>(
     () => loadThreads().find((t) => t.id === threadId),
     [threadId],
@@ -201,7 +201,10 @@ function LunaThreadPage() {
       threadId={threadId}
       initialMessages={stored?.messages ?? []}
       initialMode={stored?.mode ?? "learn"}
-      initialInput={topic ? `Explain ${topic} to me in simple terms, and how I should learn it.` : ""}
+      initialInput={
+        q ? q : topic ? `Explain ${topic} to me in simple terms, and how I should learn it.` : ""
+      }
+      autoSend={Boolean(q) && (stored?.messages ?? []).length === 0}
     />
   );
 }
@@ -211,11 +214,13 @@ function ChatWindow({
   initialMessages,
   initialMode,
   initialInput,
+  autoSend = false,
 }: {
   threadId: string;
   initialMessages: LunaThread["messages"];
   initialMode: LunaMode;
   initialInput: string;
+  autoSend?: boolean;
 }) {
   const [mode, setMode] = useState<LunaMode>(initialMode);
   const modeRef = useRef(mode);
@@ -470,6 +475,15 @@ function ChatWindow({
       toast.error(message);
     }
   };
+
+  // Sends a question that arrived from the home-page search bar, exactly once.
+  const autoSentRef = useRef(false);
+  useEffect(() => {
+    if (!autoSend || autoSentRef.current || authLoading) return;
+    if (!initialInput.trim() || messages.length > 0) return;
+    autoSentRef.current = true;
+    void submit(initialInput);
+  }, [autoSend, authLoading, initialInput, messages.length]);
 
   /** Sends a YouTube video to LunaAI, using its captions when available. */
   const submitYouTube = async (rawUrl: string, pasted?: string, questionOverride?: string) => {

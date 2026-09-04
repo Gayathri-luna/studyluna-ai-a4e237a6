@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  Bot,
   Map as MapIcon,
   Code2,
   Rocket,
@@ -16,6 +15,7 @@ import {
 import lunaLogo from "@/assets/luna-logo.png";
 import { AnimatedButton, HoverLift, LunaGlow, Particles, Reveal, Stagger } from "@/components/motion";
 import { HeroIntro } from "@/components/HeroIntro";
+import { HomeAiSearch } from "@/components/HomeAiSearch";
 
 
 const DESCRIPTION =
@@ -38,12 +38,6 @@ export const Route = createFileRoute("/")({
 });
 
 const FEATURES = [
-  {
-    to: "/luna-ai",
-    icon: Bot,
-    title: "LunaAI 7.0 🚀",
-    text: "Your multimodal AI learning assistant — text, photos, audio and podcasts.",
-  },
   {
     to: "/roadmaps",
     icon: MapIcon,
@@ -134,7 +128,10 @@ function HomePage() {
             <p data-hero-item className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
               AI-powered learning platform for engineering students across every branch.
             </p>
-            <div data-hero-item className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div data-hero-item className="flex w-full justify-center">
+              <HomeAiSearch />
+            </div>
+            <div data-hero-item className="mt-6 flex flex-col gap-3 sm:flex-row">
               <AnimatedButton>
                 <Link
                   to="/roadmaps"
