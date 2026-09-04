@@ -14,16 +14,369 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_usage: {
+        Row: {
+          count: number
+          day: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          count?: number
+          day?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          count?: number
+          day?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      bookmarks: {
+        Row: {
+          created_at: string
+          href: string
+          id: string
+          kind: string
+          label: string
+          slug: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          href: string
+          id?: string
+          kind: string
+          label: string
+          slug: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          href?: string
+          id?: string
+          kind?: string
+          label?: string
+          slug?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          created_at: string
+          id: string
+          parts: Json
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          parts: Json
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          parts?: Json
+          role?: string
+          thread_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "chat_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_threads: {
+        Row: {
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      community_posts: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          content: string
+          created_at?: string
+          id?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      interest_progress: {
+        Row: {
+          created_at: string
+          id: string
+          section: string
+          slug: string
+          step_index: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          section: string
+          slug: string
+          step_index: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          section?: string
+          slug?: string
+          step_index?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      learning_plans: {
+        Row: {
+          created_at: string
+          goal: string
+          id: string
+          reminder_time: string | null
+          schedule: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          goal: string
+          id?: string
+          reminder_time?: string | null
+          schedule?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          goal?: string
+          id?: string
+          reminder_time?: string | null
+          schedule?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_plans_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          branch: string | null
+          college_year: string | null
+          created_at: string
+          display_name: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          branch?: string | null
+          college_year?: string | null
+          created_at?: string
+          display_name?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          branch?: string | null
+          college_year?: string | null
+          created_at?: string
+          display_name?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      roadmaps: {
+        Row: {
+          branch: string
+          content: Json
+          created_at: string
+          description: string | null
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          branch: string
+          content?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          branch?: string
+          content?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      scribd_resources: {
+        Row: {
+          branch: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          scribd_url: string
+          subject_name: string
+          subject_slug: string
+          title: string
+          topic: string | null
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          branch: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          scribd_url: string
+          subject_name: string
+          subject_slug: string
+          title: string
+          topic?: string | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          branch?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          scribd_url?: string
+          subject_name?: string
+          subject_slug?: string
+          title?: string
+          topic?: string | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      increment_ai_usage: {
+        Args: { _limit: number; _user_id: string }
+        Returns: {
+          allowed: boolean
+          day_limit: number
+          used: number
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +503,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
