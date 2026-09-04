@@ -10,22 +10,24 @@ export const Route = createFileRoute("/luna-ai/")({
 function LunaIndex() {
   const navigate = useNavigate();
   const { loading } = useAuth();
-  const search = useSearch({ from: "/luna-ai" }) as { topic?: string };
+  const search = useSearch({ from: "/luna-ai" }) as { topic?: string; q?: string };
   const topic = search.topic;
+  const q = search.q;
 
   useEffect(() => {
     if (loading) return;
     const existing = loadThreads();
     // A topic hand-off from Skills/Roadmaps/Projects always starts a fresh thread.
-    const target = topic ? createThread() : (existing[0] ?? createThread());
-    if (topic || !existing[0]) upsertThread(target);
+    const fresh = Boolean(topic || q);
+    const target = fresh ? createThread() : (existing[0] ?? createThread());
+    if (fresh || !existing[0]) upsertThread(target);
     void navigate({
       to: "/luna-ai/$threadId",
       params: { threadId: target.id },
-      search: topic ? { topic } : {},
+      search: q ? { q } : topic ? { topic } : {},
       replace: true,
     });
-  }, [navigate, loading, topic]);
+  }, [navigate, loading, topic, q]);
 
   return <p className="text-sm text-muted-foreground">Opening LunaAI…</p>;
 }
