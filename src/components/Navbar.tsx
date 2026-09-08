@@ -37,6 +37,7 @@ type NavItem = { to: string; label: string; search?: Record<string, unknown> };
 
 const NAV_GROUPS: { label: string; to?: string; search?: Record<string, unknown>; items?: NavItem[] }[] = [
   { label: "LunaAI", to: "/luna-ai" },
+  { label: "V3 Pro", to: "/luna-pro" },
   {
     label: "Learn",
     items: [
