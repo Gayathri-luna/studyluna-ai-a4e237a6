@@ -12,6 +12,7 @@ import lunaLogo from "@/assets/luna-logo.png";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/luna-ai", label: "LunaAI" },
+  { to: "/luna-pro", label: "Luna AI V3 Pro" },
   { to: "/roadmaps", label: "Roadmaps" },
   { to: "/skills", label: "Skills" },
   { to: "/exams", label: "Exams" },
