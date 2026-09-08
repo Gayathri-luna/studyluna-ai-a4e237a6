@@ -124,12 +124,12 @@ export function GalaxyBackground() {
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div
         ref={layerRef}
-        className="absolute inset-0 will-change-transform"
+        className="absolute inset-0 will-change-transform transition-opacity duration-1000 ease-out"
         style={{
           backgroundImage: `url(${scene})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.55,
+          opacity: mounted ? 0.6 : 0,
         }}
       />
       {mounted && <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />}
