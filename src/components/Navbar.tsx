@@ -12,6 +12,7 @@ import lunaLogo from "@/assets/luna-logo.png";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/luna-ai", label: "LunaAI" },
+  { to: "/luna-pro", label: "Luna AI V3 Pro" },
   { to: "/roadmaps", label: "Roadmaps" },
   { to: "/skills", label: "Skills" },
   { to: "/exams", label: "Exams" },
@@ -36,6 +37,7 @@ type NavItem = { to: string; label: string; search?: Record<string, unknown> };
 
 const NAV_GROUPS: { label: string; to?: string; search?: Record<string, unknown>; items?: NavItem[] }[] = [
   { label: "LunaAI", to: "/luna-ai" },
+  { label: "V3 Pro", to: "/luna-pro" },
   {
     label: "Learn",
     items: [

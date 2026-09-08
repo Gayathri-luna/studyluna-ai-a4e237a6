@@ -21,6 +21,7 @@ import { Route as HubRouteImport } from './routes/hub'
 import { Route as IndustryNewsRouteImport } from './routes/industry-news'
 import { Route as LearningHubRouteImport } from './routes/learning-hub'
 import { Route as LunaAiRouteImport } from './routes/luna-ai'
+import { Route as LunaProRouteImport } from './routes/luna-pro'
 import { Route as MyPlanRouteImport } from './routes/my-plan'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
@@ -109,6 +110,11 @@ const LearningHubRoute = LearningHubRouteImport.update({
 const LunaAiRoute = LunaAiRouteImport.update({
   id: '/luna-ai',
   path: '/luna-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LunaProRoute = LunaProRouteImport.update({
+  id: '/luna-pro',
+  path: '/luna-pro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyPlanRoute = MyPlanRouteImport.update({
@@ -270,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/industry-news': typeof IndustryNewsRoute
   '/learning-hub': typeof LearningHubRoute
   '/luna-ai': typeof LunaAiRouteWithChildren
+  '/luna-pro': typeof LunaProRoute
   '/my-plan': typeof MyPlanRoute
   '/platform': typeof PlatformRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -312,6 +319,7 @@ export interface FileRoutesByTo {
   '/hub': typeof HubRoute
   '/industry-news': typeof IndustryNewsRoute
   '/learning-hub': typeof LearningHubRoute
+  '/luna-pro': typeof LunaProRoute
   '/my-plan': typeof MyPlanRoute
   '/platform': typeof PlatformRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/industry-news': typeof IndustryNewsRoute
   '/learning-hub': typeof LearningHubRoute
   '/luna-ai': typeof LunaAiRouteWithChildren
+  '/luna-pro': typeof LunaProRoute
   '/my-plan': typeof MyPlanRoute
   '/platform': typeof PlatformRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -401,6 +410,7 @@ export interface FileRouteTypes {
     | '/industry-news'
     | '/learning-hub'
     | '/luna-ai'
+    | '/luna-pro'
     | '/my-plan'
     | '/platform'
     | '/privacy-policy'
@@ -443,6 +453,7 @@ export interface FileRouteTypes {
     | '/hub'
     | '/industry-news'
     | '/learning-hub'
+    | '/luna-pro'
     | '/my-plan'
     | '/platform'
     | '/privacy-policy'
@@ -486,6 +497,7 @@ export interface FileRouteTypes {
     | '/industry-news'
     | '/learning-hub'
     | '/luna-ai'
+    | '/luna-pro'
     | '/my-plan'
     | '/platform'
     | '/privacy-policy'
@@ -530,6 +542,7 @@ export interface RootRouteChildren {
   IndustryNewsRoute: typeof IndustryNewsRoute
   LearningHubRoute: typeof LearningHubRoute
   LunaAiRoute: typeof LunaAiRouteWithChildren
+  LunaProRoute: typeof LunaProRoute
   MyPlanRoute: typeof MyPlanRoute
   PlatformRoute: typeof PlatformRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -643,6 +656,13 @@ declare module '@tanstack/react-router' {
       path: '/luna-ai'
       fullPath: '/luna-ai'
       preLoaderRoute: typeof LunaAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/luna-pro': {
+      id: '/luna-pro'
+      path: '/luna-pro'
+      fullPath: '/luna-pro'
+      preLoaderRoute: typeof LunaProRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-plan': {
@@ -877,6 +897,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndustryNewsRoute: IndustryNewsRoute,
   LearningHubRoute: LearningHubRoute,
   LunaAiRoute: LunaAiRouteWithChildren,
+  LunaProRoute: LunaProRoute,
   MyPlanRoute: MyPlanRoute,
   PlatformRoute: PlatformRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
