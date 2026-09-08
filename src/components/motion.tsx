@@ -207,20 +207,19 @@ export function GlowEffect({
 }
 
 /**
- * Ambient site background: drifting gradient blobs over a circuit grid.
+ * Ambient site background: very soft drifting nebula haze. No grid, no pattern.
  * Rendered once in the root layout. Purely decorative and CSS-driven.
  */
 export function FloatingBackground() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="circuit-grid absolute inset-0 opacity-[0.35]" />
-      <div className="absolute -left-24 top-[-6rem] h-[26rem] w-[26rem] rounded-full bg-primary/15 blur-[120px] animate-drift" />
+      <div className="absolute -left-24 top-[-6rem] h-[26rem] w-[26rem] rounded-full bg-primary/10 blur-[140px] animate-drift" />
       <div
-        className="absolute right-[-8rem] top-1/3 h-[22rem] w-[22rem] rounded-full bg-chart-2/15 blur-[120px] animate-drift"
+        className="absolute right-[-8rem] top-1/3 h-[22rem] w-[22rem] rounded-full bg-chart-2/10 blur-[140px] animate-drift"
         style={{ animationDelay: "-6s" }}
       />
       <div
-        className="absolute bottom-[-10rem] left-1/3 h-[24rem] w-[24rem] rounded-full bg-chart-1/10 blur-[130px] animate-drift"
+        className="absolute bottom-[-10rem] left-1/3 h-[24rem] w-[24rem] rounded-full bg-chart-1/[0.07] blur-[150px] animate-drift"
         style={{ animationDelay: "-12s" }}
       />
     </div>

@@ -191,12 +191,20 @@
   }
 }
 
-/* Circuit-board grid background */
+/* Soft deep-space haze (replaces the old circuit grid — no lines, no pattern) */
 @utility circuit-grid {
   background-image:
-    linear-gradient(var(--circuit-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--circuit-line) 1px, transparent 1px);
-  background-size: 44px 44px;
+    radial-gradient(
+      ellipse 70% 55% at 18% 12%,
+      color-mix(in oklab, var(--color-primary) 10%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 82% 78%,
+      color-mix(in oklab, var(--color-chart-2) 9%, transparent),
+      transparent 72%
+    );
+  background-size: cover;
 }
 
 @utility glow-primary {
