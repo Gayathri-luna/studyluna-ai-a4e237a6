@@ -29,6 +29,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { useGuestTrial } from "@/lib/guest-trial";
 import { GuestTrialBadge, GuestTrialModal } from "@/components/GuestTrialGate";
+import { LunaGreeting } from "@/components/LunaGreeting";
+
 import {
   LEARN_MODES,
   PODCAST_OUTPUTS,
@@ -595,7 +597,9 @@ function ChatWindow({
 
   return (
     <section className="flex min-h-[70vh] flex-col">
-      <div className="flex flex-wrap items-center gap-2">
+      <LunaGreeting />
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+
         {LEARN_MODES.map((item) => (
           <button
             key={item.id}
