@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { CircuitBoard, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 
 export type Theme = "circuit" | "light" | "dark";
 
+/** Two colour worlds only: the dark galaxy look, and a clean light look. */
 const THEMES: { value: Theme; label: string; icon: typeof Sun }[] = [
-  { value: "circuit", label: "Circuit board theme", icon: CircuitBoard },
+  { value: "circuit", label: "Dark galaxy theme", icon: Moon },
   { value: "light", label: "Light theme", icon: Sun },
-  { value: "dark", label: "Dark theme", icon: Moon },
 ];
+
 
 export const THEME_STORAGE_KEY = "luna-theme";
 
@@ -23,10 +24,11 @@ export function ThemeToggle() {
 
   useEffect(() => {
     const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-    if (stored === "circuit" || stored === "light" || stored === "dark") {
-      setTheme(stored);
-    }
+    // "dark" is an older stored value; it maps onto the galaxy theme now.
+    if (stored === "light") setTheme("light");
+    else if (stored === "circuit" || stored === "dark") setTheme("circuit");
   }, []);
+
 
   const select = (next: Theme) => {
     setTheme(next);

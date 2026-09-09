@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { GlobalSearch } from "@/components/GlobalSearch";
 import { useAuth } from "@/lib/auth";
-import lunaLogo from "@/assets/luna-logo.png";
+import { LunaLogo } from "@/components/LunaLogo";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
@@ -149,7 +149,7 @@ export function Navbar() {
     >
       <nav className="container mx-auto flex items-center gap-3 px-4 py-3">
         <Link to="/" className="group flex shrink-0 items-center gap-2.5" onClick={() => setOpen(false)}>
-          <img src={lunaLogo} alt="LUNA logo" width={36} height={36} className="h-9 w-9 rounded-full object-contain glow-primary transition-transform duration-300 group-hover:scale-110 animate-float" />
+          <LunaLogo size={36} className="glow-primary rounded-full" />
           <span className="flex flex-col leading-tight">
             <span className="text-lg font-extrabold tracking-tight text-foreground">LUNA</span>
             <span className="hidden text-[9px] font-medium uppercase tracking-[0.18em] text-muted-foreground sm:block">
