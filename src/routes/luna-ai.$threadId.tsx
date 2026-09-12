@@ -86,6 +86,22 @@ const PODCAST_PROMPTS: Record<PodcastOutput, string> = {
   flashcards: "Create flashcards from this audio as a markdown table with Question | Answer columns.",
 };
 
+type CreateKind = "flashcards" | "notes" | "quiz" | "mindmap" | "guide";
+
+const CREATE_PROMPTS: Record<CreateKind, string> = {
+  flashcards:
+    "Create study flashcards on this topic. Use the format:\n\nFRONT: question or term\n\nBACK: answer or definition\n\nFocus on important concepts, definitions, formulas and common exam questions. Leave a blank line between cards.",
+  notes:
+    "Create clean study notes on this topic with these sections, each on its own lines: Topic, Key Concepts, Important Definitions, Formulas, Examples, Important Points, Quick Revision. Keep it concise but complete.",
+  quiz:
+    "Create a quiz on this topic: 5 MCQs (with options A–D), 3 true/false and 2 short-answer questions. Put all answers with short explanations at the end under 'Answers'.",
+  mindmap:
+    "Create a text mind map of this topic: the central idea, main branches, and sub-points nested with indented bullets. Keep it easy to redraw by hand.",
+  guide:
+    "Create a study guide for this topic: what to learn first, the concept order, key formulas, practice suggestions, and a short revision checklist.",
+};
+
+
 type Attachment = { id: string; file: File; url: string };
 
 type MediaItem = {
