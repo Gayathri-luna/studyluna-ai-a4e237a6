@@ -627,6 +627,22 @@ function ChatWindow({
     void sendMessage({ text: lastPrompt });
   };
 
+  /** Creation shortcuts from the + menu; uses the typed topic or the last answer. */
+  const runCreate = (kind: CreateKind) => {
+    const topicText = input.trim() || lastAssistantText;
+    if (!topicText && attachments.length === 0) {
+      toast.error("Type a topic (or attach a file) first, then pick what Luna should create.");
+      return;
+    }
+    void submit(`${CREATE_PROMPTS[kind]}\n\nTopic / content:\n${topicText}`);
+  };
+
+  /** Follow-up actions on an answer. */
+  const followUp = (instruction: string) => {
+    if (isLoading || sendingRef.current) return;
+    void submit(instruction);
+  };
+
 
   return (
     <section className="flex min-h-[70vh] flex-col">
