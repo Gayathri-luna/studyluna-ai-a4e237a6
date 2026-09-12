@@ -8,7 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Send,
-  Paperclip,
+  Plus,
+  Video,
+  Layers,
+  NotebookPen,
+  ListChecks,
+  Network,
+  BookOpen,
+  Sparkle,
+  Languages,
   Image as ImageIcon,
   Mic,
   Radio,
@@ -21,7 +29,16 @@ import {
   Eraser,
   Youtube,
   Loader2,
+  ShieldCheck,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { readLunaModel } from "@/lib/luna-models";
 import { extractVideoId, findYouTubeLink, watchUrl } from "@/lib/youtube";
