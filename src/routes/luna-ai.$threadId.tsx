@@ -997,53 +997,81 @@ function ChatWindow({
           }}
         />
 
-        <div className="flex flex-wrap gap-1">
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            aria-label="Upload photo"
-            onClick={() => imageInputRef.current?.click()}
-          >
-            <ImageIcon className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            aria-label="Upload audio (mp3 or wav)"
-            onClick={() => audioInputRef.current?.click()}
-          >
-            <Mic className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant={podcastOpen ? "default" : "outline"}
-            aria-label="Podcast learning"
-            onClick={() => setPodcastOpen((open) => !open)}
-          >
-            <Radio className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant={youtubeOpen ? "default" : "outline"}
-            aria-label="Learn from a YouTube video"
-            onClick={() => setYoutubeOpen((open) => !open)}
-          >
-            <Youtube className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            aria-label="Attach file or document"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Paperclip className="h-4 w-4" />
-          </Button>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button type="button" size="icon" variant="outline" aria-label="Create or upload">
+              <Plus className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 rounded-xl p-1.5">
+            <DropdownMenuLabel className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              Create
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => void generateMedia("image", input)}>
+              <ImageIcon className="h-4 w-4 text-primary" /> Generate Image
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("flashcards")}>
+              <Layers className="h-4 w-4 text-primary" /> Create Flashcards
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("notes")}>
+              <NotebookPen className="h-4 w-4 text-primary" /> Create Notes
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("quiz")}>
+              <ListChecks className="h-4 w-4 text-primary" /> Create Quiz
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("mindmap")}>
+              <Network className="h-4 w-4 text-primary" /> Create Mind Map
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("guide")}>
+              <BookOpen className="h-4 w-4 text-primary" /> Create Study Guide
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() =>
+                toast.info("Video generation is not available in Luna yet — it is coming soon.")
+              }
+            >
+              <Video className="h-4 w-4 text-muted-foreground" /> Generate Video
+              <span className="ml-auto text-[10px] text-muted-foreground">Soon</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              Upload
+            </DropdownMenuLabel>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => imageInputRef.current?.click()}
+            >
+              <ImageIcon className="h-4 w-4 text-primary" /> Image or Screenshot
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => fileInputRef.current?.click()}
+            >
+              <FileText className="h-4 w-4 text-primary" /> PDF or Document
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => audioInputRef.current?.click()}
+            >
+              <Mic className="h-4 w-4 text-primary" /> Audio or Podcast
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => void generateMedia("audio", input.trim() || lastAssistantText)}
+            >
+              <Radio className="h-4 w-4 text-primary" /> Generate Audio
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => setYoutubeOpen(true)}
+            >
+              <Youtube className="h-4 w-4 text-primary" /> Learn from YouTube
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
 
         <Textarea
           ref={textareaRef}
