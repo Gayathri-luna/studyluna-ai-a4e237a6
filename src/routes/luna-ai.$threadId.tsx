@@ -1201,6 +1201,11 @@ function ChatWindow({
         Images, mp3/wav audio, PDF and text files up to {MAX_FILE_MB}MB. Enter to send, Shift+Enter
         for a new line.
       </p>
+      <p className="mt-1 flex items-center justify-center gap-1.5 text-center text-[11px] text-muted-foreground">
+        <ShieldCheck className="h-3 w-3 text-primary" />
+        Your privacy matters to Luna — chats stay on this device and uploads are used only for the
+        task you asked for. AI can make mistakes, so verify important information.
+      </p>
     </section>
   );
 }
