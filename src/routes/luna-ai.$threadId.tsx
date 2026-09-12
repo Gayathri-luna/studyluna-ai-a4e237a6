@@ -769,7 +769,7 @@ function ChatWindow({
               <div key={message.id} className="space-y-1">
                 <MessageMarkdown text={text} />
                 {text && !isLoading && (
-                  <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-1">
                     <CopyButton text={text} />
                     <button
                       type="button"
@@ -778,6 +778,54 @@ function ChatWindow({
                     >
                       <RotateCcw className="h-3 w-3" />
                       Regenerate
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp("Give that same answer much shorter — only the essentials.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <Sparkle className="h-3 w-3" />
+                      Shorter
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp("Explain that again in the simplest way, with an easy example.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <BookOpen className="h-3 w-3" />
+                      Explain simpler
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp("Translate that answer into my language (Telugu + English if I mixed them).")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <Languages className="h-3 w-3" />
+                      Translate
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp(CREATE_PROMPTS.flashcards + "\n\nUse the answer above as the content.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <Layers className="h-3 w-3" />
+                      Flashcards
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp(CREATE_PROMPTS.quiz + "\n\nUse the answer above as the content.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <ListChecks className="h-3 w-3" />
+                      Quiz
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp(CREATE_PROMPTS.notes + "\n\nUse the answer above as the content.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <NotebookPen className="h-3 w-3" />
+                      Notes
                     </button>
                   </div>
                 )}
