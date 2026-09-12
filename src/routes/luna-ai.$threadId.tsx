@@ -8,7 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Send,
-  Paperclip,
+  Plus,
+  Video,
+  Layers,
+  NotebookPen,
+  ListChecks,
+  Network,
+  BookOpen,
+  Sparkle,
+  Languages,
   Image as ImageIcon,
   Mic,
   Radio,
@@ -21,7 +29,16 @@ import {
   Eraser,
   Youtube,
   Loader2,
+  ShieldCheck,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { readLunaModel } from "@/lib/luna-models";
 import { extractVideoId, findYouTubeLink, watchUrl } from "@/lib/youtube";
@@ -68,6 +85,22 @@ const PODCAST_PROMPTS: Record<PodcastOutput, string> = {
     "Generate 10 exam-style questions from this audio (mix conceptual and numerical) with brief answers.",
   flashcards: "Create flashcards from this audio as a markdown table with Question | Answer columns.",
 };
+
+type CreateKind = "flashcards" | "notes" | "quiz" | "mindmap" | "guide";
+
+const CREATE_PROMPTS: Record<CreateKind, string> = {
+  flashcards:
+    "Create study flashcards on this topic. Use the format:\n\nFRONT: question or term\n\nBACK: answer or definition\n\nFocus on important concepts, definitions, formulas and common exam questions. Leave a blank line between cards.",
+  notes:
+    "Create clean study notes on this topic with these sections, each on its own lines: Topic, Key Concepts, Important Definitions, Formulas, Examples, Important Points, Quick Revision. Keep it concise but complete.",
+  quiz:
+    "Create a quiz on this topic: 5 MCQs (with options A–D), 3 true/false and 2 short-answer questions. Put all answers with short explanations at the end under 'Answers'.",
+  mindmap:
+    "Create a text mind map of this topic: the central idea, main branches, and sub-points nested with indented bullets. Keep it easy to redraw by hand.",
+  guide:
+    "Create a study guide for this topic: what to learn first, the concept order, key formulas, practice suggestions, and a short revision checklist.",
+};
+
 
 type Attachment = { id: string; file: File; url: string };
 
@@ -594,6 +627,22 @@ function ChatWindow({
     void sendMessage({ text: lastPrompt });
   };
 
+  /** Creation shortcuts from the + menu; uses the typed topic or the last answer. */
+  const runCreate = (kind: CreateKind) => {
+    const topicText = input.trim() || lastAssistantText;
+    if (!topicText && attachments.length === 0) {
+      toast.error("Type a topic (or attach a file) first, then pick what Luna should create.");
+      return;
+    }
+    void submit(`${CREATE_PROMPTS[kind]}\n\nTopic / content:\n${topicText}`);
+  };
+
+  /** Follow-up actions on an answer. */
+  const followUp = (instruction: string) => {
+    if (isLoading || sendingRef.current) return;
+    void submit(instruction);
+  };
+
 
   return (
     <section className="flex min-h-[70vh] flex-col">
@@ -720,7 +769,7 @@ function ChatWindow({
               <div key={message.id} className="space-y-1">
                 <MessageMarkdown text={text} />
                 {text && !isLoading && (
-                  <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-1">
                     <CopyButton text={text} />
                     <button
                       type="button"
@@ -729,6 +778,54 @@ function ChatWindow({
                     >
                       <RotateCcw className="h-3 w-3" />
                       Regenerate
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp("Give that same answer much shorter — only the essentials.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <Sparkle className="h-3 w-3" />
+                      Shorter
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp("Explain that again in the simplest way, with an easy example.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <BookOpen className="h-3 w-3" />
+                      Explain simpler
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp("Translate that answer into my language (Telugu + English if I mixed them).")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <Languages className="h-3 w-3" />
+                      Translate
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp(CREATE_PROMPTS.flashcards + "\n\nUse the answer above as the content.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <Layers className="h-3 w-3" />
+                      Flashcards
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp(CREATE_PROMPTS.quiz + "\n\nUse the answer above as the content.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <ListChecks className="h-3 w-3" />
+                      Quiz
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => followUp(CREATE_PROMPTS.notes + "\n\nUse the answer above as the content.")}
+                      className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      <NotebookPen className="h-3 w-3" />
+                      Notes
                     </button>
                   </div>
                 )}
@@ -997,53 +1094,81 @@ function ChatWindow({
           }}
         />
 
-        <div className="flex flex-wrap gap-1">
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            aria-label="Upload photo"
-            onClick={() => imageInputRef.current?.click()}
-          >
-            <ImageIcon className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            aria-label="Upload audio (mp3 or wav)"
-            onClick={() => audioInputRef.current?.click()}
-          >
-            <Mic className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant={podcastOpen ? "default" : "outline"}
-            aria-label="Podcast learning"
-            onClick={() => setPodcastOpen((open) => !open)}
-          >
-            <Radio className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant={youtubeOpen ? "default" : "outline"}
-            aria-label="Learn from a YouTube video"
-            onClick={() => setYoutubeOpen((open) => !open)}
-          >
-            <Youtube className="h-4 w-4" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            aria-label="Attach file or document"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Paperclip className="h-4 w-4" />
-          </Button>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button type="button" size="icon" variant="outline" aria-label="Create or upload">
+              <Plus className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 rounded-xl p-1.5">
+            <DropdownMenuLabel className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              Create
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => void generateMedia("image", input)}>
+              <ImageIcon className="h-4 w-4 text-primary" /> Generate Image
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("flashcards")}>
+              <Layers className="h-4 w-4 text-primary" /> Create Flashcards
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("notes")}>
+              <NotebookPen className="h-4 w-4 text-primary" /> Create Notes
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("quiz")}>
+              <ListChecks className="h-4 w-4 text-primary" /> Create Quiz
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("mindmap")}>
+              <Network className="h-4 w-4 text-primary" /> Create Mind Map
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2 rounded-lg py-2" onSelect={() => runCreate("guide")}>
+              <BookOpen className="h-4 w-4 text-primary" /> Create Study Guide
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() =>
+                toast.info("Video generation is not available in Luna yet — it is coming soon.")
+              }
+            >
+              <Video className="h-4 w-4 text-muted-foreground" /> Generate Video
+              <span className="ml-auto text-[10px] text-muted-foreground">Soon</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              Upload
+            </DropdownMenuLabel>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => imageInputRef.current?.click()}
+            >
+              <ImageIcon className="h-4 w-4 text-primary" /> Image or Screenshot
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => fileInputRef.current?.click()}
+            >
+              <FileText className="h-4 w-4 text-primary" /> PDF or Document
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => audioInputRef.current?.click()}
+            >
+              <Mic className="h-4 w-4 text-primary" /> Audio or Podcast
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => void generateMedia("audio", input.trim() || lastAssistantText)}
+            >
+              <Radio className="h-4 w-4 text-primary" /> Generate Audio
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2 rounded-lg py-2"
+              onSelect={() => setYoutubeOpen(true)}
+            >
+              <Youtube className="h-4 w-4 text-primary" /> Learn from YouTube
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
 
         <Textarea
           ref={textareaRef}
@@ -1075,6 +1200,11 @@ function ChatWindow({
       <p className="mt-2 text-center text-[11px] text-muted-foreground">
         Images, mp3/wav audio, PDF and text files up to {MAX_FILE_MB}MB. Enter to send, Shift+Enter
         for a new line.
+      </p>
+      <p className="mt-1 flex items-center justify-center gap-1.5 text-center text-[11px] text-muted-foreground">
+        <ShieldCheck className="h-3 w-3 text-primary" />
+        Your privacy matters to Luna — chats stay on this device and uploads are used only for the
+        task you asked for. AI can make mistakes, so verify important information.
       </p>
     </section>
   );
