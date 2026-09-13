@@ -3,22 +3,22 @@ import { useCallback, useEffect, useState } from "react";
 export const LUNA_MODELS = [
   {
     id: "lite",
-    name: "Luna AI Lite",
+    name: "StudyLuna.ai Lite",
     tagline: "Fast responses for everyday questions",
   },
   {
     id: "v3",
-    name: "Luna AI v3",
+    name: "StudyLuna.ai V3",
     tagline: "Balanced intelligence and speed",
   },
   {
     id: "pro",
-    name: "Luna AI v3 Pro",
+    name: "StudyLuna.ai V3 Pro",
     tagline: "Best reasoning for complex tasks",
   },
   {
     id: "research",
-    name: "Luna AI Research",
+    name: "StudyLuna.ai Research",
     tagline: "Deep analysis for academic and research work",
   },
 ] as const;

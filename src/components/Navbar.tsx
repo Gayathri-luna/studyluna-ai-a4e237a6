@@ -11,8 +11,8 @@ import { LunaLogo } from "@/components/LunaLogo";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
-  { to: "/luna-ai", label: "LunaAI" },
-  { to: "/luna-pro", label: "Luna AI V3 Pro" },
+  { to: "/luna-ai", label: "StudyLuna.ai" },
+  { to: "/luna-pro", label: "StudyLuna.ai V3 Pro" },
   { to: "/roadmaps", label: "Roadmaps" },
   { to: "/skills", label: "Skills" },
   { to: "/exams", label: "Exams" },
@@ -36,7 +36,7 @@ const NAV_LINKS = [
 type NavItem = { to: string; label: string; search?: Record<string, unknown> };
 
 const NAV_GROUPS: { label: string; to?: string; search?: Record<string, unknown>; items?: NavItem[] }[] = [
-  { label: "LunaAI", to: "/luna-ai" },
+  { label: "StudyLuna.ai", to: "/luna-ai" },
   { label: "V3 Pro", to: "/luna-pro" },
   {
     label: "Learn",
@@ -300,7 +300,7 @@ export function Navbar() {
           className="overflow-hidden border-t border-border/60 lg:hidden"
         >
           <div className="container mx-auto grid grid-cols-2 gap-1 px-4 py-3">
-            {[...NAV_LINKS, { to: "/luna-ai", label: "LunaAI 7.0" } as const, { to: user ? "/dashboard" : "/auth", label: user ? "Dashboard" : "Login" } as const].map(
+            {[...NAV_LINKS, { to: user ? "/dashboard" : "/auth", label: user ? "Dashboard" : "Login" } as const].map(
               (link) => (
                 <Link
                   key={link.label}

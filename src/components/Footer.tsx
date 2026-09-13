@@ -7,7 +7,7 @@ const PLATFORM = [
   { to: "/hub", label: "Career Hub", search: { tab: "career" } },
   { to: "/hub", label: "Learning Hub", search: { tab: "learning" } },
   { to: "/projects", label: "Projects" },
-  { to: "/luna-ai", label: "LunaAI 7.0" },
+  { to: "/luna-ai", label: "StudyLuna.ai" },
 ] as const;
 
 const COMMUNITY = [

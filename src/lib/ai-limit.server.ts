@@ -29,7 +29,7 @@ export async function verifyRequestUser(request: Request): Promise<Verified> {
   const authHeader = request.headers.get("authorization");
   const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : "";
   if (!token || token.split(".").length !== 3) {
-    return { error: new Response("Please log in to use LunaAI.", { status: 401 }) };
+    return { error: new Response("Please log in to use StudyLuna.ai.", { status: 401 }) };
   }
 
   const url = process.env["SUPABASE_URL"];
@@ -73,7 +73,7 @@ export async function consumeAiQuota(userId: string): Promise<Response | null> {
   const row = data?.[0];
   if (row && !row.allowed) {
     return new Response(
-      `Daily LunaAI limit reached (${DAILY_AI_MESSAGE_LIMIT} messages). It resets at 00:00 UTC.`,
+      `Daily StudyLuna.ai limit reached (${DAILY_AI_MESSAGE_LIMIT} messages). It resets at 00:00 UTC.`,
       { status: 429 },
     );
   }
@@ -95,7 +95,7 @@ export function checkGuestRateLimit(request: Request): Response | null {
   if (recent.length >= GUEST_MESSAGE_LIMIT) {
     guestHits.set(ip, recent);
     return new Response(
-      "Your free trial is over. Please sign in or create a free account to keep chatting with LunaAI.",
+      "Your free trial is over. Please sign in or create a free account to keep chatting with StudyLuna.ai.",
       { status: 401 },
     );
   }

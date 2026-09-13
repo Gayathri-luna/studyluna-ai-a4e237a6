@@ -64,16 +64,16 @@ export function describeAiFailure(error: unknown): string {
 
   switch (matched) {
     case 400:
-      return "LunaAI could not read that request. Try shortening the message or removing the attachment.";
+      return "StudyLuna.ai could not read that request. Try shortening the message or removing the attachment.";
     case 401:
     case 403:
-      return "Your session expired. Please log in again to keep chatting with LunaAI.";
+      return "Your session expired. Please log in again to keep chatting with StudyLuna.ai.";
     case 404:
-      return "That LunaAI model is unavailable right now. Switch models and try again.";
+      return "That StudyLuna.ai model is unavailable right now. Switch models and try again.";
     case 402:
-      return "AI credits are exhausted. Please add credits to continue using LunaAI.";
+      return "AI credits are exhausted. Please add credits to continue using StudyLuna.ai.";
     case 408:
-      return "LunaAI took too long to answer. Please try again.";
+      return "StudyLuna.ai took too long to answer. Please try again.";
     case 429:
       return "Too many requests right now. Please wait a moment and try again.";
     default:
@@ -81,8 +81,8 @@ export function describeAiFailure(error: unknown): string {
         return "The AI service is temporarily unavailable. Please try again in a moment.";
       }
       if (/fetch failed|network|ECONN|socket/i.test(raw)) {
-        return "Network problem reaching LunaAI. Check your connection and try again.";
+        return "Network problem reaching StudyLuna.ai. Check your connection and try again.";
       }
-      return "LunaAI could not respond. Please try again.";
+      return "StudyLuna.ai could not respond. Please try again.";
   }
 }
