@@ -76,9 +76,9 @@ export function GlobalSearch({ open, onOpenChange }: Props) {
           ))}
         </CommandGroup>
 
-        <CommandGroup heading="Luna AI">
-          <CommandItem value="luna ai chat conversations" onSelect={() => go("/luna-ai")}>
-            Open Luna AI chat
+        <CommandGroup heading="StudyLuna.ai">
+          <CommandItem value="studyluna ai chat conversations" onSelect={() => go("/luna-ai")}>
+            Open StudyLuna.ai chat
           </CommandItem>
         </CommandGroup>
       </CommandList>

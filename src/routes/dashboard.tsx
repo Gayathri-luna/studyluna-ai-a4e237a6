@@ -10,7 +10,7 @@ export const Route = createFileRoute("/dashboard")({
       {
         name: "description",
         content:
-          "Your StudyLUNA dashboard: branch, saved progress and quick links to roadmaps, skills, projects and LunaAI 7.0.",
+          "Your StudyLUNA dashboard: branch, saved progress and quick links to roadmaps, skills, projects and StudyLuna.ai.",
       },
       { property: "og:title", content: "Your StudyLUNA Dashboard" },
       {
@@ -26,8 +26,8 @@ export const Route = createFileRoute("/dashboard")({
 
 const QUICK_LINKS = [
   { to: "/my-plan", label: "My Learning Plan", desc: "Your goals, reminders and progress" },
-  { to: "/luna-ai", label: "LunaAI 7.0", desc: "Multimodal AI learning assistant" },
-  { to: "/luna-pro", label: "Luna AI V3 Pro", desc: "Premium AI tools — ₹299/month" },
+  { to: "/luna-ai", label: "StudyLuna.ai", desc: "Multimodal AI learning assistant" },
+  { to: "/luna-pro", label: "StudyLuna.ai V3 Pro", desc: "Premium AI tools — ₹299/month" },
   { to: "/roadmaps", label: "Roadmaps", desc: "Branch-wise learning paths" },
   { to: "/skills", label: "Skills", desc: "Technical & soft skills" },
   { to: "/projects", label: "Projects", desc: "Hands-on mini projects" },

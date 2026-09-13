@@ -29,5 +29,5 @@ function LunaIndex() {
     });
   }, [navigate, loading, topic, q]);
 
-  return <p className="text-sm text-muted-foreground">Opening LunaAI…</p>;
+  return <p className="text-sm text-muted-foreground">Opening StudyLuna.ai…</p>;
 }

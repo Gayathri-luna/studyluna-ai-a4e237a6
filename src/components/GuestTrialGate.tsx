@@ -46,7 +46,7 @@ export function GuestTrialModal({
           </DialogTitle>
           <DialogDescription>
             {reason === "time"
-              ? "Your 10-minute free trial of LunaAI has ended."
+              ? "Your 10-minute free trial of StudyLuna.ai has ended."
               : `You've used all ${GUEST_MESSAGE_LIMIT} free messages.`}{" "}
             Create a free account to keep chatting with unlimited messages, saved conversations,
             photo, audio and YouTube learning.

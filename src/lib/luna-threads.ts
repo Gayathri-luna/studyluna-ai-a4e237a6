@@ -1,10 +1,10 @@
 import type { UIMessage } from "ai";
 
-export const LUNA_VERSION = "LunaAI 7.0 🚀";
+export const LUNA_VERSION = "StudyLuna.ai";
 export const LUNA_SUBTITLE = "Your Multimodal AI Learning Assistant";
 
 export const LEARN_MODES = [
-  { id: "learn", label: "Learn", hint: "Detailed concept explanation" },
+  { id: "learn", label: "Learn", hint: "Clear, adaptive explanations" },
   { id: "exam", label: "Exam", hint: "Exam-focused structured answers" },
   { id: "quick", label: "Quick", hint: "Short, direct answers" },
   { id: "practice", label: "Practice", hint: "Questions and quizzes" },

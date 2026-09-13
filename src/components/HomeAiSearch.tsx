@@ -10,7 +10,7 @@ const EXAMPLES = [
 ] as const;
 
 /**
- * Home-page AI search bar: sends the question straight to LunaAI, which opens a
+ * Home-page AI search bar: sends the question straight to StudyLuna.ai, which opens a
  * fresh chat and streams the answer.
  */
 export function HomeAiSearch() {
@@ -34,19 +34,19 @@ export function HomeAiSearch() {
       >
         <Sparkles className="h-5 w-5 shrink-0 text-primary" />
         <label className="sr-only" htmlFor="home-ai-search">
-          Ask Luna AI anything
+          Ask StudyLuna.ai anything
         </label>
         <input
           id="home-ai-search"
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          placeholder="Ask Luna AI anything — concepts, roadmaps, projects…"
+          placeholder="Ask StudyLuna.ai anything — concepts, roadmaps, projects…"
           autoComplete="off"
           className="min-w-0 flex-1 bg-transparent py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-base"
         />
         <button
           type="submit"
-          aria-label="Ask Luna AI"
+          aria-label="Ask StudyLuna.ai"
           className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105 disabled:opacity-50"
           disabled={!value.trim()}
         >
